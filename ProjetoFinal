@@ -1,0 +1,233 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-03-28 17:32:01
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 200 (class 1259 OID 16430)
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cliente (
+    nome_cliente character varying(50),
+    end_cliente character varying(50),
+    cpf_cliente character varying(15) NOT NULL,
+    tel_cliente integer
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16461)
+-- Name: filme; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.filme (
+    nome_filme character varying(50),
+    cod_filme integer NOT NULL,
+    genero character varying(20)
+);
+
+
+ALTER TABLE public.filme OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 16440)
+-- Name: locacao; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.locacao (
+    cpf_cliente character varying(15),
+    valor double precision,
+    id_locacao integer NOT NULL,
+    prazo integer,
+    id_locador integer
+);
+
+
+ALTER TABLE public.locacao OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 16435)
+-- Name: locador; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.locador (
+    nome_locador character varying(50),
+    end_locador character varying(50),
+    cpf_locador character varying(15),
+    id_locador integer NOT NULL,
+    login character varying(20),
+    senha character varying(10)
+);
+
+
+ALTER TABLE public.locador OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16476)
+-- Name: nosso; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.nosso (
+    nome character varying(50) NOT NULL,
+    idade character varying(50)
+);
+
+
+ALTER TABLE public.nosso OWNER TO postgres;
+
+--
+-- TOC entry 3005 (class 0 OID 16430)
+-- Dependencies: 200
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cliente (nome_cliente, end_cliente, cpf_cliente, tel_cliente) FROM stdin;
+maria	rua 3	123.456.789.11	1
+josé	rua 4	123.456.789.12	2
+bruni	rua 5	123.456.789.13	3
+leyla	rua 6	123.456.789.14	4
+fernanda	rua 7	123.456.789.15	333333333
+Carlos Henrique ferreira	Rua Joaquim Soares	254.784.365-87	889881249
+Bryan Rodrigo Augusto Barbosa	Rua Reinado do Cavalo Marinho	004.254.784-32	889984152
+Priscila Tereza Elaine da Cruz	Rua Quinze do Canal	908.238.090-05	889973372
+Luiz Osvaldo Luan Mendes	Travessa Evandro Luz	041.531.223-00	889956254
+César Arthur da Paz	Rua Tulipas	172.076.283-07	889868963
+fgdf	111aa	22222222	5555555
+fre	rua edi	4545454545	45454545
+\.
+
+
+--
+-- TOC entry 3008 (class 0 OID 16461)
+-- Dependencies: 203
+-- Data for Name: filme; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.filme (nome_filme, cod_filme, genero) FROM stdin;
+como se eu fosse voce	1	comédia
+007	2	ação
+star trek- nêmesis	5	ficção
+star wars- o retorno do jedi	6	ficção
+o lobo de wallstreet	7	drama
+revolver	8	drama
+para todos os garotos que já amei	9	romance
+atividade paranormal	10	terror
+o gogo do paulinho	3	comédia romântica
+minha mãe é uma peça2	13	comédia
+\.
+
+
+--
+-- TOC entry 3007 (class 0 OID 16440)
+-- Dependencies: 202
+-- Data for Name: locacao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.locacao (cpf_cliente, valor, id_locacao, prazo, id_locador) FROM stdin;
+123.456.789.11	4	1	4	1
+\.
+
+
+--
+-- TOC entry 3006 (class 0 OID 16435)
+-- Dependencies: 201
+-- Data for Name: locador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.locador (nome_locador, end_locador, cpf_locador, id_locador, login, senha) FROM stdin;
+jefersom	rua 45	4578457845	1	admin	admin
+\.
+
+
+--
+-- TOC entry 3009 (class 0 OID 16476)
+-- Dependencies: 204
+-- Data for Name: nosso; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.nosso (nome, idade) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2865 (class 2606 OID 16434)
+-- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (cpf_cliente);
+
+
+--
+-- TOC entry 2871 (class 2606 OID 16465)
+-- Name: filme filme_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.filme
+    ADD CONSTRAINT filme_pkey PRIMARY KEY (cod_filme);
+
+
+--
+-- TOC entry 2869 (class 2606 OID 16447)
+-- Name: locacao locacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.locacao
+    ADD CONSTRAINT locacao_pkey PRIMARY KEY (id_locacao);
+
+
+--
+-- TOC entry 2867 (class 2606 OID 16439)
+-- Name: locador locador_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.locador
+    ADD CONSTRAINT locador_pkey PRIMARY KEY (id_locador);
+
+
+--
+-- TOC entry 2873 (class 2606 OID 16480)
+-- Name: nosso meu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.nosso
+    ADD CONSTRAINT meu_pkey PRIMARY KEY (nome);
+
+
+--
+-- TOC entry 2874 (class 2606 OID 16448)
+-- Name: locacao locacao_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.locacao
+    ADD CONSTRAINT locacao_fkey FOREIGN KEY (id_locador) REFERENCES public.locador(id_locador);
+
+
+-- Completed on 2021-03-28 17:32:01
+
+--
+-- PostgreSQL database dump complete
+--
+
